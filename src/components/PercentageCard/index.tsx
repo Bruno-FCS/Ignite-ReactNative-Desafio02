@@ -1,12 +1,7 @@
+import { PercentageCardContent } from "@components/PercentageCardContent";
 import { TouchableOpacityProps } from "react-native";
 
-import {
-  Container,
-  Title,
-  Subtitle,
-  Icon,
-  PercentageCardTypeStyleProps,
-} from "./styles";
+import { Container, Icon, PercentageCardTypeStyleProps } from "./styles";
 
 type Props = TouchableOpacityProps & {
   title: string;
@@ -22,8 +17,7 @@ export const PercentageCard = ({
 }: Props) => {
   return (
     <Container type={type} {...rest}>
-      <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
+      <PercentageCardContent title={title} subtitle={subtitle} />
       <Icon type={type} />
     </Container>
   );

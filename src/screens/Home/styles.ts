@@ -4,9 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.GRAY_700};
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 50px;
+  padding: 50px 24px 0 24px;
 `;
 
 export const ButtonLabel = styled.Text`

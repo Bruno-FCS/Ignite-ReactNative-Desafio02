@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import { ArrowUpRight } from "phosphor-react-native";
 
@@ -17,22 +17,6 @@ export const Container = styled(TouchableOpacity)<Props>`
   align-items: center;
   padding: 20px 0 20px 0;
   margin-bottom: 40px;
-`;
-
-export const Title = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.FONT_SIZE["2XL"]}px;
-    font-family: ${theme.FONT_FAMILY.BOLD};
-    color: ${theme.COLORS.GRAY_100};
-  `};
-`;
-
-export const Subtitle = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.FONT_SIZE.SM}px;
-    font-family: ${theme.FONT_FAMILY.REGULAR};
-    color: ${theme.COLORS.GRAY_200};
-  `};
 `;
 
 export const Icon = styled(ArrowUpRight).attrs<Props>(({ theme, type }) => ({
