@@ -1,18 +1,30 @@
 import { TouchableOpacityProps } from "react-native";
 
-import { Container, Title, Subtitle, Icon } from "./styles";
+import {
+  Container,
+  Title,
+  Subtitle,
+  Icon,
+  PercentageCardTypeStyleProps,
+} from "./styles";
 
 type Props = TouchableOpacityProps & {
   title: string;
   subtitle: string;
+  type?: PercentageCardTypeStyleProps;
 };
 
-export const PercentageCard = ({ title, subtitle, ...rest }: Props) => {
+export const PercentageCard = ({
+  title,
+  subtitle,
+  type = "PRIMARY",
+  ...rest
+}: Props) => {
   return (
-    <Container {...rest}>
+    <Container type={type} {...rest}>
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
-      <Icon />
+      <Icon type={type} />
     </Container>
   );
 };
