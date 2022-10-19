@@ -25,7 +25,7 @@ export const Container = styled(TouchableOpacity)<Props>`
   border-radius: 6px;
   justify-content: center;
   align-items: center;
-  padding: 16px 0 16px 0;
+  padding: 16px 24px 16px 24px;
   margin-bottom: 8px;
 `;
 
