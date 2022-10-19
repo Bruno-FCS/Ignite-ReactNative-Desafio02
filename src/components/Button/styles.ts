@@ -25,17 +25,16 @@ export const Container = styled(TouchableOpacity)<Props>`
   border-radius: 6px;
   justify-content: center;
   align-items: center;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding: 16px 0 16px 0;
   margin-bottom: 8px;
 `;
 
 export const AddIcon = styled(Plus).attrs<IconProps>(({ theme, icon }) => ({
   size: 18,
   color: theme.COLORS.WHITE,
-  icon: icon,
+  icon,
 }))<IconProps>`
-  display: ${(icon) => (icon.icon === "ADD" ? "flex" : "none")};
+  display: ${({ icon }) => (icon === "ADD" ? "flex" : "none")};
   margin-right: 12px;
 `;
 
@@ -43,19 +42,19 @@ export const EditIcon = styled(PencilSimpleLine).attrs<IconProps>(
   ({ theme, icon }) => ({
     size: 18,
     color: theme.COLORS.WHITE,
-    icon: icon,
+    icon,
   })
 )<IconProps>`
-  display: ${(icon) => (icon.icon === "EDIT" ? "flex" : "none")};
+  display: ${({ icon }) => (icon === "EDIT" ? "flex" : "none")};
   margin-right: 12px;
 `;
 
 export const DeleteIcon = styled(Trash).attrs<IconProps>(({ theme, icon }) => ({
   size: 18,
   color: theme.COLORS.GRAY_100,
-  icon: icon,
+  icon,
 }))<IconProps>`
-  display: ${(icon) => (icon.icon === "DELETE" ? "flex" : "none")};
+  display: ${({ icon }) => (icon === "DELETE" ? "flex" : "none")};
   margin-right: 12px;
 `;
 

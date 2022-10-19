@@ -20,9 +20,10 @@ export const Button = ({
   title,
   type = "PRIMARY",
   icon = "DEFAULT",
+  ...rest
 }: Props) => {
   return (
-    <Container type={type}>
+    <Container type={type} {...rest}>
       <AddIcon icon={icon} />
       <EditIcon icon={icon} />
       <DeleteIcon icon={icon} />
