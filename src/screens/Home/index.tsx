@@ -50,9 +50,10 @@ export const Home = () => {
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[{ paddingBottom: 100 }]}
+        stickySectionHeadersEnabled={false}
         overScrollMode="never"
       />
-      <Gradient></Gradient>
+      <Gradient />
     </Container>
   );
 };

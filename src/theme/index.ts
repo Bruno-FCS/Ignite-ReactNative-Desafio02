@@ -2,6 +2,8 @@ export default {
   COLORS: {
     WHITE: "#FFFFFF",
 
+    TRANSPARENT: "#FAFAFA00",
+
     GREEN_LIGHT: "#E5F0DB",
     GREEN_MID: "#CBE4B4",
     GREEN_DARK: "#639339",
