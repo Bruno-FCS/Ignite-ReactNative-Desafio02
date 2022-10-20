@@ -19,15 +19,6 @@ export const PercentageContainer = styled.View`
   padding-bottom: 34px;
 `;
 
-export const StatisticsContainer = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.COLORS.GRAY_700};
-  padding: 32px 24px 0 24px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  align-items: center;
-`;
-
 export const StatisticsCardContainer = styled.View`
   width: 100%;
   justify-content: space-between;

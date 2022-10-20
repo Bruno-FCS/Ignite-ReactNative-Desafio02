@@ -10,6 +10,7 @@ import theme from "./src/theme";
 
 import { Home } from "@screens/Home";
 import { Statisctics } from "@screens/Statistics";
+import { Register } from "@screens/Register";
 
 export default () => {
   const [fontsLoaded] = useFonts({ NunitoSans_400Regular, NunitoSans_700Bold });
@@ -21,7 +22,7 @@ export default () => {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Statisctics /> : <ActivityIndicator />}
+      {fontsLoaded ? <Register /> : <ActivityIndicator />}
     </ThemeProvider>
   );
 };

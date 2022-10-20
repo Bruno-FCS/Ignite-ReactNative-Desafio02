@@ -6,7 +6,7 @@ type Props = TouchableOpacityProps & {
   type?: BackButtonTypeStyleProps;
 };
 
-export const BackButton = ({ type = "PRIMARY", ...rest }: Props) => {
+export const BackButton = ({ type = "DEFAULT", ...rest }: Props) => {
   return (
     <Container {...rest}>
       <Icon type={type} />

@@ -1,4 +1,5 @@
 import { BackButton } from "@components/BackButton";
+import { DataContainer } from "@components/DataContainer";
 import { PercentageCardContent } from "@components/PercentageCardContent";
 import { StatisticsCard } from "@components/StatisticsCard";
 
@@ -7,7 +8,6 @@ import {
   Label,
   PercentageContainer,
   StatisticsCardContainer,
-  StatisticsContainer,
   StatisticsTypeStyleProps,
 } from "./styles";
 
@@ -18,14 +18,14 @@ type Props = {
 export const Statisctics = ({ type = "PRIMARY" }: Props) => {
   return (
     <Container type={type}>
-      <BackButton />
+      <BackButton type="PRIMARY" />
       <PercentageContainer>
         <PercentageCardContent
           title="90,86%"
           subtitle="das refeições dentro da dieta"
         />
       </PercentageContainer>
-      <StatisticsContainer>
+      <DataContainer>
         <Label>Estatísticas gerais</Label>
         <StatisticsCard
           title="22"
@@ -47,7 +47,7 @@ export const Statisctics = ({ type = "PRIMARY" }: Props) => {
             type="SECONDARY"
           ></StatisticsCard>
         </StatisticsCardContainer>
-      </StatisticsContainer>
+      </DataContainer>
     </Container>
   );
 };
