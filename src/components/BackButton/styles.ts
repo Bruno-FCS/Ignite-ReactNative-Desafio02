@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components/native";
-import { ArrowLeft } from "phosphor-react-native";
+import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
+import { ArrowLeft } from "phosphor-react-native";
 
 export type BackButtonTypeStyleProps = "DEFAULT" | "PRIMARY" | "SECONDARY";
 

@@ -16,12 +16,16 @@ type IconProps = {
 };
 
 export const Container = styled(TouchableOpacity)<Props>`
+  ${({ theme, type }) => css`
+    background-color: ${type === "PRIMARY"
+      ? theme.COLORS.GRAY_200
+      : theme.COLORS.GRAY_700};
+    border-width: ${type === "PRIMARY" ? 0 : 1}px;
+    border-color: ${theme.COLORS.GRAY_100};
+  `}
+
   flex-direction: row;
   width: 100%;
-  background-color: ${({ theme, type }) =>
-    type === "PRIMARY" ? theme.COLORS.GRAY_200 : theme.COLORS.GRAY_700};
-  border-width: ${({ type }) => (type === "PRIMARY" ? 0 : 1)}px;
-  border-color: ${({ theme }) => theme.COLORS.GRAY_100};
   border-radius: 6px;
   justify-content: center;
   align-items: center;
@@ -29,30 +33,27 @@ export const Container = styled(TouchableOpacity)<Props>`
   margin-bottom: 8px;
 `;
 
-export const AddIcon = styled(Plus).attrs<IconProps>(({ theme, icon }) => ({
+export const AddIcon = styled(Plus).attrs<IconProps>(({ theme }) => ({
   size: 18,
   color: theme.COLORS.WHITE,
-  icon,
 }))<IconProps>`
   display: ${({ icon }) => (icon === "ADD" ? "flex" : "none")};
   margin-right: 12px;
 `;
 
 export const EditIcon = styled(PencilSimpleLine).attrs<IconProps>(
-  ({ theme, icon }) => ({
+  ({ theme }) => ({
     size: 18,
     color: theme.COLORS.WHITE,
-    icon,
   })
 )<IconProps>`
   display: ${({ icon }) => (icon === "EDIT" ? "flex" : "none")};
   margin-right: 12px;
 `;
 
-export const DeleteIcon = styled(Trash).attrs<IconProps>(({ theme, icon }) => ({
+export const DeleteIcon = styled(Trash).attrs<IconProps>(({ theme }) => ({
   size: 18,
   color: theme.COLORS.GRAY_100,
-  icon,
 }))<IconProps>`
   display: ${({ icon }) => (icon === "DELETE" ? "flex" : "none")};
   margin-right: 12px;

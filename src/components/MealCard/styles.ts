@@ -12,6 +12,7 @@ export const Container = styled(TouchableOpacity)`
     background-color: ${theme.COLORS.GRAY_700};
     border-color: ${theme.COLORS.GRAY_500};
   `}
+
   flex-direction: row;
   width: 100%;
   border-radius: 6px;
@@ -27,6 +28,7 @@ export const Hour = styled.Text`
     font-size: ${theme.FONT_SIZE.XS}px;
     font-family: ${theme.FONT_FAMILY.BOLD};
   `}
+
   margin-right: 12px;
 `;
 
@@ -37,15 +39,14 @@ export const Title = styled.Text`
     font-family: ${theme.FONT_FAMILY.REGULAR};
     border-color: ${theme.COLORS.GRAY_500};
   `}
+
   border-left-width: 1px;
   flex: 1;
   padding-left: 12px;
   margin-right: 12px;
 `;
 
-export const Icon = styled.View.attrs<Props>(({ type }) => ({
-  type,
-}))<Props>`
+export const Icon = styled.View<Props>`
   background-color: ${({ theme, type }) =>
     type === "PRIMARY" ? theme.COLORS.GREEN_MID : theme.COLORS.RED_MID};
   width: 14px;
