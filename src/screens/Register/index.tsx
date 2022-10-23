@@ -8,11 +8,17 @@ import { ScrollView } from "react-native";
 
 import { Container, FieldContainer, Form, Title } from "./styles";
 
-export const Register = () => {
+type RegisterScreenTypeProps = "NEW" | "EDIT";
+
+type Props = {
+  type: RegisterScreenTypeProps;
+};
+
+export const Register = ({ type = "NEW" }: Props) => {
   return (
     <Container>
       <BackButton />
-      <Title>Nova refeição</Title>
+      <Title>{type === "NEW" ? "Nova refeição" : "Editar refeição"}</Title>
       <DataContainer>
         <Form>
           <ScrollView bounces={false}>
@@ -48,7 +54,9 @@ export const Register = () => {
             </FieldContainer>
           </ScrollView>
 
-          <Button title="Cadastrar refeição" />
+          <Button
+            title={type === "NEW" ? "Cadastrar refeição" : "Salvar alterações"}
+          />
         </Form>
       </DataContainer>
     </Container>

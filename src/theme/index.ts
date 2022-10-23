@@ -3,6 +3,7 @@ export default {
     WHITE: "#FFFFFF",
 
     TRANSPARENT: "#FAFAFA00",
+    MODAL_BACKGROUND: "#00000040",
 
     GREEN_LIGHT: "#E5F0DB",
     GREEN_MID: "#CBE4B4",
