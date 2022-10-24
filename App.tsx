@@ -14,6 +14,8 @@ import { Register } from "@screens/Register";
 import { Feedback } from "@screens/Feedback";
 import { Meal } from "@screens/Meal";
 
+import { Routes } from "./src/routes";
+
 export default () => {
   const [fontsLoaded] = useFonts({ NunitoSans_400Regular, NunitoSans_700Bold });
 
@@ -24,7 +26,7 @@ export default () => {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Register type="EDIT" /> : <ActivityIndicator />}
+      {fontsLoaded ? <Routes /> : <ActivityIndicator />}
     </ThemeProvider>
   );
 };

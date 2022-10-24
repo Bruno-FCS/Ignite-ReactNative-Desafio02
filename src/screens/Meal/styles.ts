@@ -1,15 +1,13 @@
 import styled, { css } from "styled-components/native";
 
-export type MealTypeStyleProps = "PRIMARY" | "SECONDARY";
-
 type Props = {
-  type: MealTypeStyleProps;
+  fitsDiet: boolean;
 };
 
 export const Container = styled.View<Props>`
   flex: 1;
-  background-color: ${({ theme, type }) =>
-    type === "PRIMARY" ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
+  background-color: ${({ theme, fitsDiet }) =>
+    fitsDiet ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
   padding-top: 50px;
 `;
 

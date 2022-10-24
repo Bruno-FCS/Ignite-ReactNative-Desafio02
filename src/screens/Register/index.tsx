@@ -1,10 +1,12 @@
+import { ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import { BackButton } from "@components/BackButton";
 import { Button } from "@components/Button";
 import { DataContainer } from "@components/DataContainer";
 import { DataInput } from "@components/DataInput";
 import { DataInputLabel } from "@components/DataInputLabel";
 import { SelectionButton } from "@components/SelectionButton";
-import { ScrollView } from "react-native";
 
 import { Container, FieldContainer, Form, Title } from "./styles";
 
@@ -14,7 +16,13 @@ type Props = {
   type: RegisterScreenTypeProps;
 };
 
-export const Register = ({ type = "NEW" }: Props) => {
+export const Register = ({ type }: Props) => {
+  const navigation = useNavigation();
+
+  const handleShowFeedback = () => {
+    navigation.navigate("feedback", { type: "PRIMARY" });
+  };
+
   return (
     <Container>
       <BackButton />
@@ -56,6 +64,7 @@ export const Register = ({ type = "NEW" }: Props) => {
 
           <Button
             title={type === "NEW" ? "Cadastrar refeição" : "Salvar alterações"}
+            onPress={handleShowFeedback}
           />
         </Form>
       </DataContainer>

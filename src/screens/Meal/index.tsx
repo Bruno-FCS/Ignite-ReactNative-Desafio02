@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { BackButton } from "@components/BackButton";
 import { Button } from "@components/Button";
@@ -10,7 +11,6 @@ import { ScrollView } from "react-native";
 import {
   Container,
   Form,
-  MealTypeStyleProps,
   Title,
   Details,
   DateTimeTitle,
@@ -23,12 +23,11 @@ import {
 } from "./styles";
 
 type Props = {
-  name: string;
-  description: string;
-  date: string;
-  time: string;
-  fitsDiet: boolean;
-  type?: MealTypeStyleProps;
+  name?: string;
+  description?: string;
+  date?: string;
+  time?: string;
+  fitsDiet?: boolean;
 };
 
 export const Meal = ({
@@ -36,28 +35,37 @@ export const Meal = ({
   description,
   date,
   time,
-  fitsDiet,
-  type = "PRIMARY",
+  fitsDiet = true,
 }: Props) => {
   const [modalVisible, setModalVisible] = useState(false);
 
+  const navigation = useNavigation();
+
+  const handleEditMeal = () => {
+    navigation.navigate("register", { type: "EDIT" });
+  };
+
   return (
-    <Container type={type}>
+    <Container fitsDiet={fitsDiet}>
       <BackButton />
       <Title>Refeição</Title>
       <DataContainer>
         <Form>
           <ScrollView bounces={false}>
-            <MealTitle>Sanduíche</MealTitle>
-            <Details>
-              Sanduíche de pão integral com atum e salada de alface e tomate
-            </Details>
+            <MealTitle>{name}</MealTitle>
+            <Details>{description}</Details>
             <DateTimeTitle>Date e hora</DateTimeTitle>
-            <Details>12/08/2022 às 16:00</Details>
+            <Details>
+              {date} às {time}
+            </Details>
             <FitsDietIndicator type />
           </ScrollView>
 
-          <Button icon="EDIT" title="Editar refeição" />
+          <Button
+            icon="EDIT"
+            title="Editar refeição"
+            onPress={handleEditMeal}
+          />
           <Button
             type="SECONDARY"
             icon="DELETE"
