@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+
 import { BackButton } from "@components/BackButton";
 import { DataContainer } from "@components/DataContainer";
 import { PercentageCardContent } from "@components/PercentageCardContent";
@@ -16,9 +18,15 @@ type Props = {
 };
 
 export const Statisctics = ({ type = "PRIMARY" }: Props) => {
+  const navigation = useNavigation();
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <Container type={type}>
-      <BackButton type="PRIMARY" />
+      <BackButton type="PRIMARY" onPress={handleGoBack} />
       <PercentageContainer>
         <PercentageCardContent
           title="90,86%"

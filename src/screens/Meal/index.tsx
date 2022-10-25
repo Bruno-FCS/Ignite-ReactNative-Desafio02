@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Modal } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Modal, ScrollView } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { BackButton } from "@components/BackButton";
 import { Button } from "@components/Button";
 import { DataContainer } from "@components/DataContainer";
 import { FitsDietIndicator } from "@components/FitsDietIndicator";
-import { ScrollView } from "react-native";
 
 import {
   Container,
@@ -22,22 +21,20 @@ import {
   SingleButtonContainter,
 } from "./styles";
 
-type Props = {
-  name?: string;
-  description?: string;
-  date?: string;
-  time?: string;
-  fitsDiet?: boolean;
+type RouteParams = {
+  name: string;
+  description: string;
+  date: string;
+  time: string;
+  fitsDiet: boolean;
 };
 
-export const Meal = ({
-  name,
-  description,
-  date,
-  time,
-  fitsDiet = true,
-}: Props) => {
+export const Meal = () => {
   const [modalVisible, setModalVisible] = useState(false);
+
+  const route = useRoute();
+  const { name, description, date, time, fitsDiet } =
+    route.params as RouteParams;
 
   const navigation = useNavigation();
 
@@ -45,16 +42,20 @@ export const Meal = ({
     navigation.navigate("register", { type: "EDIT" });
   };
 
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <Container fitsDiet={fitsDiet}>
-      <BackButton />
+      <BackButton type="PRIMARY" onPress={handleGoBack} />
       <Title>Refeição</Title>
       <DataContainer>
         <Form>
           <ScrollView bounces={false}>
             <MealTitle>{name}</MealTitle>
             <Details>{description}</Details>
-            <DateTimeTitle>Date e hora</DateTimeTitle>
+            <DateTimeTitle>Data e hora</DateTimeTitle>
             <Details>
               {date} às {time}
             </Details>

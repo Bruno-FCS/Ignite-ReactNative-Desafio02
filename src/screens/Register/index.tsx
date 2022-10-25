@@ -1,5 +1,8 @@
-import { ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { FlatList, ScrollView } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+import { mealCreate } from "@storage/meal/mealCreate";
 
 import { BackButton } from "@components/BackButton";
 import { Button } from "@components/Button";
@@ -12,59 +15,88 @@ import { Container, FieldContainer, Form, Title } from "./styles";
 
 type RegisterScreenTypeProps = "NEW" | "EDIT";
 
-type Props = {
+type RouteParams = {
   type: RegisterScreenTypeProps;
 };
 
-export const Register = ({ type }: Props) => {
+export const Register = () => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [fitsDiet, setFitsDiet] = useState("");
+
+  const route = useRoute();
+  const { type } = route.params as RouteParams;
+
   const navigation = useNavigation();
 
-  const handleShowFeedback = () => {
+  const handleRegisterMeal = () => {
+    mealCreate({ name, description, date, time, fitsDiet });
     navigation.navigate("feedback", { type: "PRIMARY" });
+  };
+
+  const handleGoBack = () => {
+    navigation.goBack();
   };
 
   return (
     <Container>
-      <BackButton />
+      <BackButton onPress={handleGoBack} />
       <Title>{type === "NEW" ? "Nova refeição" : "Editar refeição"}</Title>
       <DataContainer>
         <Form>
           <ScrollView bounces={false}>
             <FieldContainer directionAndMargin="PRIMARY" width="PRIMARY">
               <DataInputLabel title="Nome" />
-              <DataInput />
+              <DataInput onChangeText={setName} value={name} />
             </FieldContainer>
 
             <FieldContainer directionAndMargin="PRIMARY" width="PRIMARY">
               <DataInputLabel title="Descrição" />
-              <DataInput textAlignVertical="top" multiline type="SECONDARY" />
+              <DataInput
+                textAlignVertical="top"
+                multiline
+                type="SECONDARY"
+                onChangeText={setDescription}
+                value={description}
+              />
             </FieldContainer>
 
             <FieldContainer directionAndMargin="SECONDARY" width="PRIMARY">
               <FieldContainer directionAndMargin="PRIMARY" width="SECONDARY">
                 <DataInputLabel title="Data" />
-                <DataInput />
+                <DataInput onChangeText={setDate} value={date} />
               </FieldContainer>
 
               <FieldContainer directionAndMargin="PRIMARY" width="SECONDARY">
                 <DataInputLabel title="Hora" />
-                <DataInput />
+                <DataInput onChangeText={setTime} value={time} />
               </FieldContainer>
             </FieldContainer>
 
             <FieldContainer directionAndMargin="PRIMARY" width="PRIMARY">
               <DataInputLabel title="Está dentro da dieta?" />
-
-              <FieldContainer directionAndMargin="SECONDARY" width="PRIMARY">
-                <SelectionButton title="Sim" type="PRIMARY" />
-                <SelectionButton title="Não" type="SECONDARY" />
-              </FieldContainer>
             </FieldContainer>
+
+            <FlatList
+              data={["Sim", "Não"]}
+              keyExtractor={(item) => item}
+              renderItem={({ item }) => (
+                <SelectionButton
+                  title={item}
+                  isActive={item === fitsDiet}
+                  type={item === "Sim" ? "PRIMARY" : "SECONDARY"}
+                  onPress={() => setFitsDiet(item)}
+                />
+              )}
+              horizontal
+            />
           </ScrollView>
 
           <Button
             title={type === "NEW" ? "Cadastrar refeição" : "Salvar alterações"}
-            onPress={handleShowFeedback}
+            onPress={handleRegisterMeal}
           />
         </Form>
       </DataContainer>

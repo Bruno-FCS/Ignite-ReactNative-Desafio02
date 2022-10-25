@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Button } from "@components/Button";
 import { FeedbackContent } from "@components/FeedbackContent";
@@ -6,11 +6,14 @@ import { FeedbackContentTypeStyleProps } from "@components/FeedbackContent/style
 
 import { ButtonContainer, Container } from "./styles";
 
-type Props = {
-  type?: FeedbackContentTypeStyleProps;
+type RouteParams = {
+  type: FeedbackContentTypeStyleProps;
 };
 
-export const Feedback = ({ type = "PRIMARY" }: Props) => {
+export const Feedback = () => {
+  const route = useRoute();
+  const { type } = route.params as RouteParams;
+
   const navigation = useNavigation();
 
   const handleBackToHome = () => {
