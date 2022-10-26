@@ -31,9 +31,21 @@ export const Register = () => {
 
   const navigation = useNavigation();
 
-  const handleRegisterMeal = () => {
-    mealCreate({ name, description, date, time, fitsDiet });
-    navigation.navigate("feedback", { type: "PRIMARY" });
+  const handleRegisterMeal = async () => {
+    if (
+      name.trim().length === 0 ||
+      description.trim().length === 0 ||
+      date.trim().length === 0 ||
+      time.trim().length === 0 ||
+      fitsDiet.trim().length === 0
+    ) {
+      return;
+    }
+
+    await mealCreate(name, description, date, time, fitsDiet);
+    navigation.navigate("feedback", {
+      type: fitsDiet === "Sim" ? "PRIMARY" : "SECONDARY",
+    });
   };
 
   const handleGoBack = () => {

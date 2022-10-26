@@ -4,23 +4,15 @@ import { MEAL_COLLECTION } from "@storage/storageConfig";
 import { idGenerate } from "@storage/id/idGenerate";
 import { mealsGetAll } from "./mealsGetAll";
 
-type Props = {
-  name: string;
-  description: string;
-  date: string;
-  time: string;
-  fitsDiet: boolean;
-};
-
-export const mealCreate = async ({
-  name,
-  description,
-  date,
-  time,
-  fitsDiet,
-}: Props) => {
+export const mealCreate = async (
+  name: string,
+  description: string,
+  date: string,
+  time: string,
+  fitsDiet: string
+) => {
   try {
-    const id = idGenerate();
+    const id = await idGenerate();
 
     const storedMeals = await mealsGetAll();
 

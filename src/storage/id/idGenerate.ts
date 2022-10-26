@@ -4,10 +4,14 @@ import { ID_COUNTER } from "@storage/storageConfig";
 
 export const idGenerate = async () => {
   try {
-    const currentId = (await AsyncStorage.getItem(ID_COUNTER)) || "0";
-    const newId = JSON.parse(currentId) + 1;
+    const storage = await AsyncStorage.getItem(ID_COUNTER);
+
+    const storedId = storage ? JSON.parse(storage) : 0;
+
+    const newId = JSON.parse(storedId) + 1;
 
     await AsyncStorage.setItem(ID_COUNTER, JSON.stringify(newId));
+
     return newId;
   } catch (error) {
     throw error;
