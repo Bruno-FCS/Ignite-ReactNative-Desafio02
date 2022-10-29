@@ -1,6 +1,10 @@
-import { useState } from "react";
-import { FlatList, ScrollView } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { Alert, FlatList, ScrollView } from "react-native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 
 import { mealCreate } from "@storage/meal/mealCreate";
 
@@ -12,11 +16,15 @@ import { DataInputLabel } from "@components/DataInputLabel";
 import { SelectionButton } from "@components/SelectionButton";
 
 import { Container, FieldContainer, Form, Title } from "./styles";
+import { mealsGetAll } from "@storage/meal/mealsGetAll";
+import { mealGetById } from "@storage/meal/mealGetById";
+import { mealUpdateById } from "@storage/meal/mealUpdateById";
 
 type RegisterScreenTypeProps = "NEW" | "EDIT";
 
 type RouteParams = {
   type: RegisterScreenTypeProps;
+  id?: number;
 };
 
 export const Register = () => {
@@ -27,7 +35,7 @@ export const Register = () => {
   const [fitsDiet, setFitsDiet] = useState("");
 
   const route = useRoute();
-  const { type } = route.params as RouteParams;
+  const { type, id } = route.params as RouteParams;
 
   const navigation = useNavigation();
 
@@ -42,7 +50,13 @@ export const Register = () => {
       return;
     }
 
-    await mealCreate(name, description, date, time, fitsDiet);
+    if (type === "EDIT") {
+      await mealUpdateById(name, description, date, time, fitsDiet, id);
+    } else {
+      await mealCreate(name, description, date, time, fitsDiet);
+    }
+
+    console.warn(await mealsGetAll());
     navigation.navigate("feedback", {
       type: fitsDiet === "Sim" ? "PRIMARY" : "SECONDARY",
     });
@@ -51,6 +65,31 @@ export const Register = () => {
   const handleGoBack = () => {
     navigation.goBack();
   };
+
+  const fetchMealDetails = async () => {
+    try {
+      const { name, description, date, time, fitsDiet } = await mealGetById(id);
+      setName(name);
+      setDescription(description);
+      setDate(date);
+      setTime(time);
+      setFitsDiet(fitsDiet);
+    } catch (error) {
+      Alert.alert(
+        "Editar refeição",
+        "Não foi possível carregar as informações."
+      );
+    } finally {
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      if (type === "EDIT") {
+        fetchMealDetails();
+      }
+    }, [])
+  );
 
   return (
     <Container>

@@ -6,9 +6,9 @@ export const mealsGetAll = async () => {
   try {
     const storage = await AsyncStorage.getItem(MEAL_COLLECTION);
 
-    const storedMeals = storage ? JSON.parse(storage) : [];
+    const storedData = storage ? JSON.parse(storage) : [];
 
-    return storedMeals;
+    return storedData;
   } catch (error) {
     throw error;
   }

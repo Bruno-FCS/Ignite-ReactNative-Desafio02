@@ -1,14 +1,12 @@
 import styled, { css } from "styled-components/native";
 
-export type FitsDietIndicatorTypeStyleProps = boolean;
-
 type Props = {
-  type: FitsDietIndicatorTypeStyleProps;
+  fitsDiet: string;
 };
 
 export const Container = styled.View<Props>`
   flex-direction: row;
-  width: ${({ type }) => (type ? "144px" : "127px")};
+  width: ${({ fitsDiet }) => (fitsDiet === "Sim" ? "144px" : "127px")};
   background-color: ${({ theme }) => theme.COLORS.GRAY_600};
   min-height: 34px;
   max-height: 34px;
@@ -30,8 +28,8 @@ export const Title = styled.Text`
 `;
 
 export const Icon = styled.View<Props>`
-  background-color: ${({ theme, type }) =>
-    type ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK};
+  background-color: ${({ theme, fitsDiet }) =>
+    fitsDiet === "Sim" ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK};
   width: 8px;
   height: 8px;
   border-radius: 4px;

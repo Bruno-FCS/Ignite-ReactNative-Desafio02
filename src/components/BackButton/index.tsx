@@ -1,15 +1,15 @@
 import { TouchableOpacityProps } from "react-native";
 
-import { BackButtonTypeStyleProps, Container, Icon } from "./styles";
+import { Container, Icon } from "./styles";
 
 type Props = TouchableOpacityProps & {
-  type?: BackButtonTypeStyleProps;
+  fitsDiet?: string;
 };
 
-export const BackButton = ({ type = "DEFAULT", ...rest }: Props) => {
+export const BackButton = ({ fitsDiet = "", ...rest }: Props) => {
   return (
     <Container {...rest}>
-      <Icon type={type} />
+      <Icon fitsDiet={fitsDiet} />
     </Container>
   );
 };

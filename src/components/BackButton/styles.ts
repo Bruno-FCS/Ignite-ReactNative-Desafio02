@@ -2,10 +2,8 @@ import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import { ArrowLeft } from "phosphor-react-native";
 
-export type BackButtonTypeStyleProps = "DEFAULT" | "PRIMARY" | "SECONDARY";
-
 type Props = {
-  type: BackButtonTypeStyleProps;
+  fitsDiet: string;
 };
 
 export const Container = styled(TouchableOpacity)`
@@ -15,14 +13,14 @@ export const Container = styled(TouchableOpacity)`
   z-index: 1;
 `;
 
-export const Icon = styled(ArrowLeft).attrs<Props>(({ theme, type }) => ({
+export const Icon = styled(ArrowLeft).attrs<Props>(({ theme, fitsDiet }) => ({
   size: 24,
   color:
-    type === "DEFAULT"
-      ? theme.COLORS.GRAY_200
-      : type === "PRIMARY"
+    fitsDiet === "Sim"
       ? theme.COLORS.GREEN_DARK
-      : theme.COLORS.RED_DARK,
+      : fitsDiet === "Não"
+      ? theme.COLORS.RED_DARK
+      : theme.COLORS.GRAY_200,
 }))<Props>`
   margin-left: 24px;
 `;

@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components/native";
 
 type Props = {
-  fitsDiet: boolean;
+  fitsDiet: string;
 };
 
 export const Container = styled.View<Props>`
   flex: 1;
   background-color: ${({ theme, fitsDiet }) =>
-    fitsDiet ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
+    fitsDiet === "Sim" ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
   padding-top: 50px;
 `;
 

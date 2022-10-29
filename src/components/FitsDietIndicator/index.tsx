@@ -1,19 +1,14 @@
-import {
-  Container,
-  Title,
-  Icon,
-  FitsDietIndicatorTypeStyleProps,
-} from "./styles";
+import { Container, Title, Icon } from "./styles";
 
 type Props = {
-  type?: FitsDietIndicatorTypeStyleProps;
+  fitsDiet: string;
 };
 
-export const FitsDietIndicator = ({ type = true }: Props) => {
+export const FitsDietIndicator = ({ fitsDiet }: Props) => {
   return (
-    <Container type={type}>
-      <Icon type={type} />
-      <Title>{type ? "dentro da dieta" : "fora da dieta"}</Title>
+    <Container fitsDiet={fitsDiet}>
+      <Icon fitsDiet={fitsDiet} />
+      <Title>{fitsDiet === "Sim" ? "dentro da dieta" : "fora da dieta"}</Title>
     </Container>
   );
 };

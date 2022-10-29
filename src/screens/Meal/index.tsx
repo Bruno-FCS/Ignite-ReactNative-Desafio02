@@ -1,6 +1,10 @@
-import { useState } from "react";
-import { Modal, ScrollView } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { Alert, Modal, ScrollView } from "react-native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 
 import { BackButton } from "@components/BackButton";
 import { Button } from "@components/Button";
@@ -20,46 +24,65 @@ import {
   ButtonsContainer,
   SingleButtonContainter,
 } from "./styles";
+import { mealGetById } from "@storage/meal/mealGetById";
+import { mealDeleteById } from "@storage/meal/mealDeleteById";
 
 type RouteParams = {
-  name: string;
-  description: string;
-  date: string;
-  time: string;
-  fitsDiet: boolean;
+  id: string;
 };
 
 export const Meal = () => {
+  const [mealDetails, setMealDetails] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
   const route = useRoute();
-  const { name, description, date, time, fitsDiet } =
-    route.params as RouteParams;
+  const { id } = route.params as RouteParams;
 
   const navigation = useNavigation();
 
   const handleEditMeal = () => {
-    navigation.navigate("register", { type: "EDIT" });
+    navigation.navigate("register", { type: "EDIT", id });
+  };
+
+  const handleDeleteMeal = async () => {
+    await mealDeleteById(id);
+    navigation.navigate("home");
   };
 
   const handleGoBack = () => {
     navigation.goBack();
   };
 
+  const fetchMealDetails = async () => {
+    try {
+      const data = await mealGetById(id);
+      setMealDetails(data);
+    } catch (error) {
+      Alert.alert("Turmas", "Não foi possível carregar as refeições.");
+    } finally {
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchMealDetails();
+    }, [])
+  );
+
   return (
-    <Container fitsDiet={fitsDiet}>
-      <BackButton type="PRIMARY" onPress={handleGoBack} />
+    <Container fitsDiet={mealDetails.fitsDiet}>
+      <BackButton fitsDiet={mealDetails.fitsDiet} onPress={handleGoBack} />
       <Title>Refeição</Title>
       <DataContainer>
         <Form>
           <ScrollView bounces={false}>
-            <MealTitle>{name}</MealTitle>
-            <Details>{description}</Details>
+            <MealTitle>{mealDetails.name}</MealTitle>
+            <Details>{mealDetails.description}</Details>
             <DateTimeTitle>Data e hora</DateTimeTitle>
             <Details>
-              {date} às {time}
+              {mealDetails.date} às {mealDetails.time}
             </Details>
-            <FitsDietIndicator type />
+            <FitsDietIndicator fitsDiet={mealDetails.fitsDiet} />
           </ScrollView>
 
           <Button
@@ -99,10 +122,7 @@ export const Meal = () => {
                 />
               </SingleButtonContainter>
               <SingleButtonContainter>
-                <Button
-                  title="Sim, excluir"
-                  onPress={() => setModalVisible(!modalVisible)}
-                />
+                <Button title="Sim, excluir" onPress={handleDeleteMeal} />
               </SingleButtonContainter>
             </ButtonsContainer>
           </ModalView>

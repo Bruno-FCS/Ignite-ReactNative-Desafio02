@@ -9,27 +9,46 @@ export const mealCreate = async (
   description: string,
   date: string,
   time: string,
-  fitsDiet: string
+  fitsDiet: string,
+  id?: string | number
 ) => {
   try {
-    const id = await idGenerate();
+    const mealId = id || (await idGenerate());
 
-    const storedMeals = await mealsGetAll();
+    const storedData = await mealsGetAll();
 
-    await AsyncStorage.setItem(
-      MEAL_COLLECTION,
-      JSON.stringify([
-        ...storedMeals,
+    const dataByDate = storedData.find((item) => item.label === date);
+
+    if (dataByDate) {
+      dataByDate.data = [
+        ...dataByDate.data,
         {
-          id: id,
+          id: mealId,
           name: name,
           description: description,
           date: date,
           time: time,
           fitsDiet: fitsDiet,
         },
-      ])
-    );
+      ];
+      await AsyncStorage.setItem(MEAL_COLLECTION, JSON.stringify(storedData));
+    } else {
+      const newData = {
+        label: date,
+        data: [
+          {
+            id: mealId,
+            name: name,
+            description: description,
+            date: date,
+            time: time,
+            fitsDiet: fitsDiet,
+          },
+        ],
+      };
+      const updatedData = [...storedData, newData];
+      await AsyncStorage.setItem(MEAL_COLLECTION, JSON.stringify(updatedData));
+    }
   } catch (error) {
     throw error;
   }
